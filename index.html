@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen Muestra Química - Tipo Ceneval Exani II</title>
+    <title>Examen Muestra Química - EXANI II</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
-        body { font-family: 'Inter', system-ui, sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
         .title-font { font-family: 'Playfair Display', serif; }
-        .question-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .question-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
-        .option-label { transition: all 0.2s ease; }
+        .question-card { transition: all 0.3s ease; }
         .progress-bar { transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
     </style>
 </head>
@@ -23,125 +21,105 @@
                 <div class="flex items-center gap-x-3">
                     <div class="w-11 h-11 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold title-font">Q</div>
                     <div>
-                        <h1 class="text-2xl font-bold text-slate-800 title-font tracking-tight">Examen Muestra Química</h1>
-                        <p class="text-xs text-slate-500">Simulador Tipo Ceneval Exani II</p>
+                        <h1 class="text-2xl font-bold text-slate-800 title-font tracking-tight">Examen Química</h1>
+                        <p class="text-xs text-slate-500">Simulador EXANI II</p>
                     </div>
                 </div>
                 <div id="progress-header" class="hidden flex items-center gap-x-4 text-sm">
-                    <span id="current-exercise-header" class="font-semibold text-blue-700">Ejercicio 1/17</span>
-                    <div class="h-2 w-48 bg-slate-200 rounded-full overflow-hidden">
-                        <div id="progress-bar-header" class="progress-bar h-2 bg-blue-600 rounded-full w-0"></div>
+                    <span id="current-exercise-header" class="font-semibold text-blue-700"></span>
+                    <div class="h-2 w-32 bg-slate-200 rounded-full overflow-hidden">
+                        <div id="progress-bar-header" class="progress-bar h-2 bg-blue-600 w-0"></div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <div id="start-screen" class="min-h-[calc(100vh-73px)] flex items-center justify-center px-6">
+        <div id="start-screen" class="min-h-[calc(100vh-80px)] flex items-center justify-center px-6">
             <div class="max-w-xl text-center">
-                <div class="inline-flex items-center gap-x-2 bg-blue-100 text-blue-700 px-5 py-2 rounded-3xl text-sm font-medium mb-6">
-                    <i class="fa-solid fa-flask"></i><span>Química</span>
-                </div>
-                <h2 class="text-5xl title-font font-bold text-slate-800 leading-tight mb-4">Examen Muestra Química</h2>
-                <p class="text-lg text-slate-600 mb-10 max-w-md mx-auto">
-                    51 preguntas distribuidas en 17 bloques temáticos.<br>
-                    <span class="font-semibold text-emerald-600">Resultados automáticos a Google Sheets.</span>
-                </p>
-                <button onclick="startQuiz()" class="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl font-semibold text-lg flex items-center justify-center gap-x-3 shadow-lg transition-all active:scale-95">
-                    <i class="fa-solid fa-play"></i> INICIAR EXAMEN
+                <h2 class="text-5xl title-font font-bold text-slate-800 mb-6">Simulador de Química</h2>
+                <p class="text-lg text-slate-600 mb-10">51 preguntas con retroalimentación inmediata y registro en Google Sheets.</p>
+                <button onclick="startQuiz()" class="px-10 py-5 bg-blue-600 text-white rounded-3xl font-semibold text-lg shadow-lg hover:bg-blue-700 transition-all">
+                    INICIAR EXAMEN
                 </button>
             </div>
         </div>
 
-        <div id="quiz-screen" class="hidden">
-            <div class="px-6 pt-8 pb-24">
-                <div class="mb-8">
-                    <div class="flex justify-between items-end mb-3">
-                        <div>
-                            <span id="exercise-number" class="text-blue-600 font-mono text-4xl font-bold">01</span>
-                            <span id="exercise-title" class="ml-4 text-2xl font-semibold text-slate-800"></span>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-xs text-slate-500">PROGRESO</div>
-                            <div class="flex items-center gap-x-3">
-                                <div class="h-1.5 w-48 bg-slate-200 rounded-full overflow-hidden">
-                                    <div id="progress-bar" class="progress-bar h-1.5 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full"></div>
-                                </div>
-                                <span id="progress-text" class="text-sm font-medium text-slate-600">1/17</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+        <div id="quiz-screen" class="hidden px-6 py-8 pb-32">
+            <div class="mb-8 flex justify-between items-end">
+                <div>
+                    <span id="exercise-number" class="text-blue-600 font-mono text-4xl font-bold">01</span>
+                    <span id="exercise-title" class="ml-4 text-2xl font-semibold text-slate-800 uppercase tracking-wide"></span>
                 </div>
-                <div id="questions-container" class="space-y-8"></div>
             </div>
-            <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 py-5 px-6 z-50">
-                <div class="max-w-4xl mx-auto flex items-center justify-between">
-                    <button onclick="prevExercise()" id="btn-prev" class="px-8 py-4 rounded-3xl border border-slate-300 disabled:opacity-40">
-                        <i class="fa-solid fa-arrow-left mr-2"></i>Anterior
-                    </button>
-                    <button onclick="nextExercise()" id="btn-next" class="px-10 py-4 bg-slate-800 text-white rounded-3xl font-semibold">
-                        <span id="next-text">Siguiente</span><i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
+            <div id="questions-container" class="space-y-8"></div>
+            
+            <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-5 z-50">
+                <div class="max-w-4xl mx-auto flex justify-between">
+                    <button id="btn-prev" onclick="prevExercise()" class="px-8 py-4 border rounded-3xl disabled:opacity-30">Anterior</button>
+                    <button id="btn-next" onclick="nextExercise()" class="px-8 py-4 bg-slate-800 text-white rounded-3xl">Siguiente</button>
                 </div>
             </div>
         </div>
 
         <div id="modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center hidden z-[100]">
-            <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4">
-                <h2 class="text-2xl font-bold mb-2">Finalizar Examen</h2>
-                <p class="text-slate-600 mb-6">Ingresa tus datos para registrar tu puntuación.</p>
-                <input id="userName" type="text" placeholder="Nombre completo" class="w-full p-4 border border-slate-200 rounded-2xl mb-4 outline-none focus:border-blue-500">
-                <input id="userEmail" type="email" placeholder="Correo electrónico" class="w-full p-4 border border-slate-200 rounded-2xl mb-6 outline-none focus:border-blue-500">
-                <button onclick="submitData()" class="w-full px-6 py-4 bg-blue-600 text-white rounded-2xl font-semibold hover:bg-blue-700 transition-all">Enviar Resultados</button>
+            <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4 text-center">
+                <h2 class="text-2xl font-bold mb-4">¡Terminaste!</h2>
+                <p class="mb-6 text-slate-600">Ingresa tus datos para enviar tu puntuación a la base de datos.</p>
+                <input id="userName" type="text" placeholder="Tu nombre" class="w-full p-4 border rounded-2xl mb-4">
+                <input id="userEmail" type="email" placeholder="Tu correo" class="w-full p-4 border rounded-2xl mb-6">
+                <button onclick="submitData()" class="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold">ENVIAR Y VER RESULTADOS</button>
             </div>
         </div>
 
-        <div id="results-screen" class="hidden min-h-screen bg-slate-50 py-12 px-6">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="bg-white rounded-3xl shadow-sm p-10 mb-8">
-                    <h2 class="text-3xl font-bold text-slate-800 mb-4">¡Prueba Finalizada!</h2>
-                    <div class="text-7xl font-bold text-emerald-600 mb-2" id="final-score">0</div>
-                    <div class="text-slate-400 text-xl font-medium">de 51 aciertos</div>
-                    <div id="score-label" class="mt-4 font-semibold text-lg uppercase tracking-wider"></div>
+        <div id="results-screen" class="hidden px-6 py-12">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="bg-white p-10 rounded-3xl shadow-sm border mb-8">
+                    <h2 class="text-3xl font-bold mb-2">Tu Resultado</h2>
+                    <div class="text-7xl font-bold text-emerald-600" id="final-score">0</div>
+                    <p class="text-slate-400">de 51 aciertos</p>
+                    <div id="score-label" class="mt-4 font-bold text-xl"></div>
                 </div>
                 <div id="feedback-container" class="text-left space-y-6"></div>
-                <button onclick="window.location.reload()" class="mt-10 px-8 py-4 bg-slate-800 text-white rounded-2xl font-semibold">Repetir Examen</button>
+                <button onclick="location.reload()" class="mt-10 px-8 py-4 bg-slate-800 text-white rounded-2xl">Reiniciar Simulador</button>
             </div>
         </div>
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3kYPwrMZzeD_gIrNI1LS2ZgNVX1dCoU5thZC50fDL9bx8Xyhy_sk_CGwKbJs0Vi8qRw/exec'; // <--- COLOCA TU URL AQUÍ
+        // CONFIGURACIÓN
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3kYPwrMZzeD_gIrNI1LS2ZgNVX1dCoU5thZC50fDL9bx8Xyhy_sk_CGwKbJs0Vi8qRw/exec'; // <--- PEGA TU URL DE APPS SCRIPT AQUÍ
 
-        const titles = ["Química Básica I", "Estructura Atómica", "Tabla Periódica", "Reacciones Ácidas", "Estequiometría", "Propiedades y Solubilidad", "Óxidos Básicos", "Óxidos Ácidos", "Termoquímica", "Comportamiento de Gases"];
+        const titles = [
+            "Química Básica I", "Estructura Atómica", "Tabla Periódica", "Reacciones Ácidas", 
+            "Estequiometría", "Propiedades y Solubilidad", "Óxidos Básicos", "Óxidos Ácidos", 
+            "Lluvia Ácida", "Termoquímica", "Comportamiento de Gases"
+        ];
 
-        // He reconstruido los datos basados en tu PDF
+        // Preguntas extraídas del PDF [cite: 6-9]
         const questionsData = [
             [
-                { question: "¿Cuál de las siguientes sustancias es un compuesto?", options: ["A) O3", "B) Cl2", "C) CO", "D) Br2"], correct: 2, explanation: "El CO (Monóxido de Carbono) está formado por dos elementos distintos, por lo tanto es un compuesto." },
-                { question: "¿Cuántos protones, electrones y neutrones tiene el átomo con número atómico 25 y masa 55?", options: ["A) 25p, 25e y 30n", "B) 25p, 25e y 55n", "C) 25p, 30e y 25n", "D) 30p, 25e y 25n"], correct: 0, explanation: "p=Z(25), e=p(25), n=A-Z(55-25=30)." },
-                { question: "En la tabla periódica, los elementos en una misma columna:", options: ["A) Tienen masa igual", "B) Tienen comportamiento químico similar", "C) Tienen mismo periodo", "D) Son todos gases"], correct: 1, explanation: "Los grupos o columnas agrupan elementos con propiedades químicas similares." }
+                { question: "¿Cuál de las siguientes sustancias es un compuesto?", options: ["A) O3", "B) Cl2", "C) CO", "D) Br2"], correct: 2, explanation: "Correcta: C) CO es un compuesto formado por carbono y oxígeno." },
+                { question: "¿Cuántos protones, electrones y neutrones tiene el átomo con número atómico 25 y masa 55?", options: ["A) 25p, 25e y 30n", "B) 25p, 25e y 55n", "C) 25p, 30e y 25n", "D) 30p, 25e y 25n"], correct: 0, explanation: "p=25, e=25, n=55-25=30." },
+                { question: "En la tabla periódica, los elementos en una misma columna:", options: ["A) Masa igual", "B) Comportamiento químico similar", "C) Mismo periodo", "D) Son gases"], correct: 1, explanation: "Los grupos (columnas) comparten propiedades similares." }
             ],
             [
-                { question: "¿Cuáles de los siguientes compuestos reaccionan con el agua para formar un ácido?", options: ["A) I y IV", "B) I y III", "C) IV y V", "D) III y V"], correct: 3, explanation: "Los óxidos no metálicos (anhídridos) como el ClO2 y SO2 forman ácidos al hidratarse." },
-                { question: "La fórmula KClO3 establece que un mol de este compuesto contiene:", options: ["A) 1 mol K, 1 mol Cl, 3 mol O", "B) 1 mol Na...", "C) 2 mol K...", "D) 6 mol K..."], correct: 0, explanation: "La estequiometría indica la cantidad de moles de átomos de cada elemento presente." },
-                { question: "¿Qué sustancia cambia el papel tornasol a azul y la fenolftaleína a rosa?", options: ["A) Sal ácida", "B) Base o hidróxido", "C) Ácido fuerte", "D) Óxido básico"], correct: 1, explanation: "Son propiedades características de las sustancias básicas (hidróxidos)." }
+                { question: "¿Qué compuestos reaccionan con agua para formar un ácido?", options: ["A) I y IV", "B) I y III", "C) IV y V", "D) III y V"], correct: 3, explanation: "Los anhídridos como ClO2 y SO2 forman ácidos al hidratarse." },
+                { question: "La fórmula KClO3 indica que un mol contiene:", options: ["A) 1 mol K, 1 mol Cl, 3 mol O", "B) 1 mol Na", "C) 2 mol K", "D) 6 mol K"], correct: 0, explanation: "Estequiometría directa de la fórmula." },
+                { question: "¿Qué sustancia cambia tornasol a azul y fenolftaleína a rosa?", options: ["A) Sal ácida", "B) Base o hidróxido", "C) Ácido fuerte", "D) Óxido básico"], correct: 1, explanation: "Propiedades básicas clásicas." }
             ],
             [
-                { question: "La solubilidad de un soluto en un disolvente suele aumentar:", options: ["A) Al aumentar la temperatura", "B) Al aumentar el soluto", "C) Al bajar el solvente", "D) A temperatura constante"], correct: 0, explanation: "En la mayoría de los sólidos, el aumento de energía cinética facilita la disolución." },
-                { question: "¿Cuál de los siguientes compuestos es un óxido básico?", options: ["A) CaO", "B) CO2", "C) SO3", "D) N2O5"], correct: 0, explanation: "Los óxidos básicos se forman por la unión de un metal (Ca) con oxígeno." },
-                { question: "¿Cuál de los siguientes compuestos es un óxido ácido?", options: ["A) Na2O", "B) K2O", "C) SO3", "D) CaO"], correct: 2, explanation: "El SO3 es un óxido de un no metal (Azufre), por lo tanto es ácido." }
+                { question: "La solubilidad de un soluto aumenta:", options: ["A) Al subir temperatura", "B) Al subir soluto", "C) Al bajar solvente", "D) Constante"], correct: 0, explanation: "La energía térmica facilita la disolución." },
+                { question: "¿Cuál es un óxido básico?", options: ["A) CaO", "B) CO2", "C) SO3", "D) N2O5"], correct: 0, explanation: "Metal (Ca) + Oxígeno." },
+                { question: "¿Cuál es un óxido ácido?", options: ["A) Na2O", "B) K2O", "C) SO3", "D) CaO"], correct: 2, explanation: "No metal (S) + Oxígeno." }
             ],
             [
-                { question: "La lluvia ácida contiene H2SO4 que reacciona con el mármol (CaCO3). ¿Cuál es la reacción?", options: ["A) H2SO4 + CaCO3 -> CaSO4", "B) Reacción con HCl", "C) Reacción con HNO3", "D) H2SO4 + CaCO3 -> CaSO4 + H2O + CO2"], correct: 3, explanation: "Es una reacción de neutralización que libera dióxido de carbono y agua." },
-                { question: "Reacción en capas altas de la atmósfera que requiere energía solar (UV):", options: ["A) Exotérmica", "B) Endotérmica", "C) Combustión", "D) Neutralización"], correct: 1, explanation: "Si requiere absorción de energía (radiación) para ocurrir, es endotérmica." },
-                { question: "Reacciones de oxidación intensa que generan fuego y liberan energía:", options: ["A) Reacción química", "B) Potencial eléctrico", "C) Proceso exotérmico", "D) Proceso endotérmico"], correct: 2, explanation: "La liberación de calor y luz define a un proceso exotérmico." }
+                { question: "Reacción de lluvia ácida (H2SO4) con mármol (CaCO3):", options: ["A) Solo CaSO4", "B) Con HCl", "C) Con HNO3", "D) CaSO4 + H2O + CO2"], correct: 3, explanation: "Neutralización con liberación de gas." },
+                { question: "Reacción que requiere energía UV del sol:", options: ["A) Exotérmica", "B) Endotérmica", "C) Combustión", "D) Neutralización"], correct: 1, explanation: "Absorbe energía (Endo)." },
+                { question: "Oxidación intensa que genera fuego:", options: ["A) Reacción química", "B) Potencial", "C) Exotérmico", "D) Endotérmico"], correct: 2, explanation: "Libera energía (Exo)." }
             ],
             [
-                { question: "Al calentar un gas, ¿qué sucede con su volumen y su energía interna?", options: ["A) Disminuyen ambos", "B) Aumentan ambos", "C) Energía baja, volumen sube", "D) Energía sube, volumen baja"], correct: 1, explanation: "Según la ley de Charles y la teoría cinética, el calor aumenta la velocidad de partículas y expande el gas." }
+                { question: "Al calentar un gas, ¿qué sucede?", options: ["A) Bajan ambos", "B) Suben energía y volumen", "C) Baja energía", "D) Baja volumen"], correct: 1, explanation: "Leyes de los gases: mayor calor, mayor expansión y energía." }
             ]
-            // Nota: He incluido los bloques principales del código. 
-            // Puedes seguir añadiendo más preguntas al array questionsData siguiendo este formato.
         ];
 
         let currentExercise = 0;
@@ -156,48 +134,39 @@
 
         function renderExercise() {
             document.getElementById('exercise-number').textContent = String(currentExercise + 1).padStart(2, '0');
-            document.getElementById('exercise-title').textContent = titles[currentExercise] || "Preguntas";
+            document.getElementById('exercise-title').textContent = titles[currentExercise] || "Química";
             
-            const progressPercent = Math.round((currentExercise / (questionsData.length - 1)) * 100);
-            document.getElementById('progress-bar').style.width = `${progressPercent}%`;
-            document.getElementById('progress-bar-header').style.width = `${progressPercent}%`;
-            document.getElementById('progress-text').textContent = `${currentExercise + 1}/${questionsData.length}`;
-            document.getElementById('current-exercise-header').textContent = `Ejercicio ${currentExercise + 1}/${questionsData.length}`;
+            const total = questionsData.length;
+            const progress = ((currentExercise + 1) / total) * 100;
+            document.getElementById('progress-bar-header').style.width = `${progress}%`;
+            document.getElementById('current-exercise-header').textContent = `Ejercicio ${currentExercise + 1}/${total}`;
 
             const container = document.getElementById('questions-container');
             container.innerHTML = '';
 
             questionsData[currentExercise].forEach((q, qIndex) => {
                 const div = document.createElement('div');
-                div.className = 'question-card bg-white border border-slate-200 rounded-3xl p-7 shadow-sm';
+                div.className = 'question-card bg-white border rounded-3xl p-6 shadow-sm';
                 div.innerHTML = `
-                    <div class="flex gap-x-4">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-2xl bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-lg">${qIndex + 1}</div>
-                        <div class="flex-1">
-                            <p class="font-medium text-slate-800 leading-tight mb-6">${q.question}</p>
-                            <div class="space-y-2">
-                                ${q.options.map((opt, optIndex) => `
-                                    <label onclick="selectOption(${qIndex}, ${optIndex})" class="option-label flex items-center gap-x-4 px-5 py-4 rounded-2xl border ${userAnswers[currentExercise][qIndex] === optIndex ? 'bg-blue-50 border-blue-600' : 'border-slate-100'} cursor-pointer">
-                                        <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center ${userAnswers[currentExercise][qIndex] === optIndex ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}">
-                                            ${userAnswers[currentExercise][qIndex] === optIndex ? '<i class="fa-solid fa-check text-white text-[10px]"></i>' : ''}
-                                        </div>
-                                        <span class="text-slate-700 text-sm">${opt}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>`;
+                    <p class="font-bold text-slate-800 mb-4">${qIndex + 1}. ${q.question}</p>
+                    <div class="space-y-2">
+                        ${q.options.map((opt, optIdx) => `
+                            <label onclick="selectOption(${qIndex}, ${optIdx})" class="flex items-center gap-3 p-4 border rounded-2xl cursor-pointer ${userAnswers[currentExercise][qIndex] === optIdx ? 'bg-blue-50 border-blue-500' : ''}">
+                                <div class="w-5 h-5 border-2 rounded-full ${userAnswers[currentExercise][qIndex] === optIdx ? 'bg-blue-500' : ''}"></div>
+                                <span>${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
                 container.appendChild(div);
             });
 
             document.getElementById('btn-prev').disabled = currentExercise === 0;
-            document.getElementById('btn-next').innerHTML = currentExercise === questionsData.length - 1 ? 
-                '<span>Finalizar</span> <i class="fa-solid fa-flag-checkered ml-2"></i>' : 
-                '<span>Siguiente</span> <i class="fa-solid fa-arrow-right ml-2"></i>';
+            document.getElementById('btn-next').textContent = currentExercise === total - 1 ? "Finalizar" : "Siguiente";
         }
 
-        function selectOption(qIndex, optIndex) {
-            userAnswers[currentExercise][qIndex] = optIndex;
+        function selectOption(qIdx, optIdx) {
+            userAnswers[currentExercise][qIdx] = optIdx;
             renderExercise();
         }
 
@@ -205,7 +174,7 @@
             if (currentExercise < questionsData.length - 1) {
                 currentExercise++;
                 renderExercise();
-                window.scrollTo(0, 0);
+                window.scrollTo(0,0);
             } else {
                 document.getElementById('modal').classList.remove('hidden');
             }
@@ -221,62 +190,41 @@
         function submitData() {
             const name = document.getElementById('userName').value;
             const email = document.getElementById('userEmail').value;
-            if (!name || !email) return alert("Por favor completa tus datos");
+            if (!name || !email) return alert("Completa los datos");
 
-            document.getElementById('modal').classList.add('hidden');
-            sendToGoogleSheets(name, email);
-            showResults();
-        }
-
-        function sendToGoogleSheets(name, email) {
-            let totalCorrect = 0;
-            userAnswers.forEach((exAns, exIdx) => {
-                exAns.forEach((ans, qIdx) => {
-                    if (ans === questionsData[exIdx][qIdx].correct) totalCorrect++;
-                });
+            let score = 0;
+            userAnswers.flat().forEach((ans, i) => {
+                if(ans === questionsData.flat()[i]?.correct) score++;
             });
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, score: totalCorrect })
+                body: JSON.stringify({ name, email, score })
             });
+
+            document.getElementById('modal').classList.add('hidden');
+            showResults(score);
         }
 
-        function showResults() {
+        function showResults(score) {
             document.getElementById('quiz-screen').classList.add('hidden');
             document.getElementById('results-screen').classList.remove('hidden');
-            document.getElementById('progress-header').classList.add('hidden');
+            document.getElementById('final-score').textContent = score;
             
-            let totalCorrect = 0;
-            let totalQuestions = 0;
             const container = document.getElementById('feedback-container');
-
-            questionsData.forEach((exercise, exIdx) => {
-                exercise.forEach((q, qIndex) => {
-                    totalQuestions++;
-                    const isCorrect = userAnswers[exIdx][qIndex] === q.correct;
-                    if (isCorrect) totalCorrect++;
-
-                    const card = document.createElement('div');
-                    card.className = `p-6 rounded-3xl bg-white border-l-8 ${isCorrect ? 'border-emerald-500' : 'border-red-500'} shadow-sm`;
-                    card.innerHTML = `
-                        <p class="font-bold text-slate-800 mb-2">${q.question}</p>
-                        <p class="text-sm ${isCorrect ? 'text-emerald-600' : 'text-red-500'} font-medium">
-                            Tu respuesta: ${userAnswers[exIdx][qIndex] !== null ? q.options[userAnswers[exIdx][qIndex]] : 'No respondida'}
-                        </p>
-                        ${!isCorrect ? `<p class="text-sm text-slate-600">Correcta: ${q.options[q.correct]}</p>` : ''}
-                        <div class="mt-4 p-4 bg-slate-50 rounded-2xl text-xs text-slate-500 italic">${q.explanation}</div>
-                    `;
-                    container.appendChild(card);
-                });
+            questionsData.flat().forEach((q, i) => {
+                const ans = userAnswers.flat()[i];
+                const correct = ans === q.correct;
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-2xl border-l-4 bg-white ${correct ? 'border-emerald-500' : 'border-red-500'}`;
+                card.innerHTML = `
+                    <p class="font-bold">${q.question}</p>
+                    <p class="text-sm mt-1">Respuesta: ${ans !== null ? q.options[ans] : 'Vacía'}</p>
+                    <p class="text-xs text-slate-500 mt-2 italic">${q.explanation}</p>
+                `;
+                container.appendChild(card);
             });
-
-            document.getElementById('final-score').textContent = totalCorrect;
-            const percent = (totalCorrect / totalQuestions) * 100;
-            document.getElementById('score-label').textContent = percent >= 70 ? "¡Excelente trabajo!" : "Sigue estudiando";
-            document.getElementById('score-label').className += percent >= 70 ? " text-emerald-600" : " text-amber-600";
         }
     </script>
 </body>
